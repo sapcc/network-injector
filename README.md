@@ -12,9 +12,9 @@ These haproxy then relay traffic to a unix domain socket.
 The manager scans periodically for specific configurable tags on OpenStack Networks. If found, it does following
 for every network it discovers:
 
-1. create network namespace injector-<network-id>
+1. create network namespace qinjector-`network-id`
 2. create port for (configurable) device host-id and network:injector owner
-3. create veth pair, with source interface called tap<port-id:11> (truncated at 11 characters)
+3. create veth pair, with source interface called tap`port-id:11` (truncated at 11 characters)
 4. put other veth interface into the network namespace and configures IP/Routes/MAC according to the port properties.
 5. Spawns haproxy in this network namespace which listens on http/80 and redirects traffic to a unix domain socket
 
