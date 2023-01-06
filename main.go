@@ -24,6 +24,7 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"github.com/sapcc/network-injector/config"
 	"github.com/sapcc/network-injector/controllers"
 )
@@ -60,12 +61,17 @@ func main() {
 
 	// configure logger
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-	log.SetPrefix("network-injector")
 
 	osc := &controllers.OpenStackController{}
 	if err := osc.SetupOpenStack(); err != nil {
 		log.Fatal(err)
 	}
+
+	// Ready, install health endpoint
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		_, _ = w.Write([]byte("ok"))
+	})
 
 	log.Printf(
 		"The network injector %s for service '%s' is ready to scan for Networks tagged '%s'. "+

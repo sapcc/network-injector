@@ -18,17 +18,19 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/dns"
-	"github.com/sapcc/network-injector/config"
 	"log"
+	"time"
 
 	"github.com/gophercloud/gophercloud"
 	"github.com/gophercloud/gophercloud/openstack"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/dns"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/portsbinding"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
 	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/gophercloud/utils/openstack/clientconfig"
+
+	"github.com/sapcc/network-injector/config"
 )
 
 type OpenStackController struct {
@@ -41,6 +43,9 @@ func (o *OpenStackController) SetupOpenStack() error {
 	if err != nil {
 		return err
 	}
+	// Allow automatically reauthenticate
+	ao.AllowReauth = true
+
 	provider, err := openstack.NewClient(ao.IdentityEndpoint)
 	if err != nil {
 		return err
@@ -53,6 +58,8 @@ func (o *OpenStackController) SetupOpenStack() error {
 	if o.neutron, err = openstack.NewNetworkV2(provider, gophercloud.EndpointOpts{}); err != nil {
 		return err
 	}
+	// Set timeout to 10 secs
+	o.neutron.HTTPClient.Timeout = time.Second * 10
 
 	o.haproxy = NewHAProxyController()
 	return nil

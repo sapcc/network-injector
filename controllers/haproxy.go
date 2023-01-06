@@ -29,6 +29,7 @@ import (
 	"github.com/bcicen/go-haproxy"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+
 	"github.com/sapcc/network-injector/config"
 )
 
