@@ -51,6 +51,8 @@ global
     stats       socket "{{.TempDir}}haproxy-stats-{{.Network}}.sock"
     maxconn     1024
     pidfile     "{{.TempDir}}haproxy-{{.Network}}.pid"
+    user haproxy
+    group haproxy
     daemon
 
 defaults
