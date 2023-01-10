@@ -186,23 +186,16 @@ func (o *OpenStackController) ScanForTaggedNetworks() error {
 	// Retrieve a pager (i.e. a paginated collection)
 	pager := networks.List(o.neutron, opts)
 
-	var injectedNetworks []*networks.Network
+	var injectedNetworks []networks.Network
 
 	// Define an anonymous function to be executed on each page's iteration
 	if err := pager.EachPage(func(page pagination.Page) (bool, error) {
-		networkList, err := networks.ExtractNetworks(page)
+		var err error
+		injectedNetworks, err = networks.ExtractNetworks(page)
 		if err != nil {
 			return false, err
 		}
 
-		for _, n := range networkList {
-			for _, tag := range n.Tags {
-				// just to be sure
-				if tag == config.NetworkTag {
-					injectedNetworks = append(injectedNetworks, &n)
-				}
-			}
-		}
 		return true, nil
 	}); err != nil {
 		return err
@@ -210,7 +203,7 @@ func (o *OpenStackController) ScanForTaggedNetworks() error {
 
 	log.Printf("ScanForTaggedNetworks(): Found %d enabled networks", len(injectedNetworks))
 	for _, injectedNetwork := range injectedNetworks {
-		if err := o.EnableNetwork(injectedNetwork); err != nil {
+		if err := o.EnableNetwork(&injectedNetwork); err != nil {
 			log.Print(err)
 		}
 	}
