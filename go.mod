@@ -8,7 +8,7 @@ require (
 	github.com/gophercloud/utils v0.0.0-20221207145018-e8fba78967ca
 	github.com/prometheus/client_golang v1.14.0
 	github.com/vishvananda/netlink v1.1.0
-	github.com/vishvananda/netns v0.0.1
+	github.com/vishvananda/netns v0.0.2
 )
 
 require (
