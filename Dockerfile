@@ -25,7 +25,7 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o ma
 
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM alpine:3.17
+FROM alpine:3.18
 WORKDIR /
 COPY --from=builder /workspace/manager .
 LABEL source_repository="https://github.com/sapcc/network-injector"
