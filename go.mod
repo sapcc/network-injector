@@ -1,10 +1,13 @@
 module github.com/sapcc/network-injector
 
-go 1.19
+go 1.22
+
+toolchain go1.23.2
 
 require (
 	github.com/bcicen/go-haproxy v0.0.0-20210728173702-412d077dabc1
-	github.com/gophercloud/gophercloud v1.4.0
+	github.com/gophercloud/gophercloud v1.3.0
+	github.com/gophercloud/gophercloud/v2 v2.2.0
 	github.com/gophercloud/utils v0.0.0-20230523080330-de873b9cf00d
 	github.com/prometheus/client_golang v1.15.1
 	github.com/vishvananda/netlink v1.1.0
@@ -24,7 +27,7 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.9.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.22.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
