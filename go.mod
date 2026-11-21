@@ -3,7 +3,7 @@ module github.com/sapcc/network-injector
 go 1.19
 
 require (
-	github.com/bcicen/go-haproxy v0.0.0-20210728173702-412d077dabc1
+	github.com/bcicen/go-haproxy v0.0.0-20261121185200-86b33c2681e5
 	github.com/gophercloud/gophercloud v1.4.0
 	github.com/gophercloud/utils v0.0.0-20230523080330-de873b9cf00d
 	github.com/prometheus/client_golang v1.15.1
